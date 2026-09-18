@@ -1,34 +1,1395 @@
-<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>1WINBET — Sportsbook + Casino Demo</title>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>1WINBET — Sportsbook & Casino Demo</title>
+
 <style>
-body{margin:0;background:#080b12;color:#f5f5f5;font-family:Arial,sans-serif}header{padding:16px 20px;background:#111722;border-bottom:1px solid #303847;display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0}.logo{font-size:25px;font-weight:900}.logo b{color:#e5ce45}.bal{padding:9px 12px;background:#1b2330;border-radius:10px}.bal b{color:#e5ce45}main{max-width:1100px;margin:auto;padding:22px 16px}.notice{background:#211d09;border:1px solid #6c5d1f;padding:12px;border-radius:10px;color:#eee09b}nav{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}button{border:0;border-radius:9px;padding:10px 14px;background:#202a39;color:#fff;font-weight:bold;cursor:pointer}button.active,button.primary{background:#e5ce45;color:#111}.grid{display:grid;grid-template-columns:1.5fr .8fr;gap:16px}.card{background:#111722;border:1px solid #303847;border-radius:14px;padding:16px;margin-bottom:16px}.event{padding:14px;border:1px solid #303847;border-radius:11px;margin:10px 0;background:#0c1119;display:flex;justify-content:space-between;gap:12px}.muted{color:#9aa5b6;font-size:13px}.odds{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.odd{background:#202a39;min-width:60px}.slip{border-bottom:1px solid #303847;padding:10px 0}.hidden{display:none}.games{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.game{text-align:center;border:1px solid #303847;border-radius:12px;padding:18px;background:#0c1119}.icon{font-size:42px}.reels{display:flex;justify-content:center;gap:8px;margin:20px}.reel{font-size:48px;background:#070a0f;border:1px solid #303847;border-radius:10px;width:75px;height:75px;display:grid;place-items:center}footer{text-align:center;color:#8792a4;padding:25px;border-top:1px solid #303847}@media(max-width:750px){.grid{grid-template-columns:1fr}.games{grid-template-columns:1fr 1fr}.event{display:block}.odds{margin-top:10px}}@media(max-width:450px){.games{grid-template-columns:1fr}header{flex-wrap:wrap}}
-</style></head>
+:root{
+  --bg:#07090d;
+  --panel:#10141c;
+  --panel2:#151b25;
+  --border:#252d39;
+  --text:#f5f7fa;
+  --muted:#8e99aa;
+  --gold:#f3d548;
+  --gold2:#d9b92e;
+  --green:#35d07f;
+  --red:#ff5c65;
+  --blue:#4da3ff;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -20%,rgba(243,213,72,.08),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,Helvetica,sans-serif;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.topbar{
+  height:68px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:0 28px;
+  background:rgba(7,9,13,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  color:var(--gold);
+}
+
+.desktop-nav{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.nav-btn{
+  background:transparent;
+  color:var(--muted);
+  border:0;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  background:#191f29;
+  color:var(--gold);
+}
+
+.balance{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 13px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#11161e;
+  font-size:13px;
+}
+
+.balance strong{
+  color:var(--gold);
+  font-size:15px;
+}
+
+main{
+  max-width:1400px;
+  margin:auto;
+  padding:28px 22px 100px;
+}
+
+.demo-banner{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  margin-bottom:22px;
+  border:1px solid #665b25;
+  border-radius:12px;
+  background:#211e0d;
+  color:#e8dc91;
+  font-size:13px;
+}
+
+.demo-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 12px var(--gold);
+}
+
+.hero{
+  min-height:270px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  padding:42px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 85% 30%,rgba(243,213,72,.17),transparent 30%),
+    linear-gradient(135deg,#151a23,#0c1017);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:280px;
+  height:280px;
+  right:-100px;
+  top:-100px;
+  border-radius:50%;
+  border:1px solid rgba(243,213,72,.12);
+  box-shadow:
+    0 0 0 35px rgba(243,213,72,.025),
+    0 0 0 70px rgba(243,213,72,.015);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:700px;
+}
+
+.hero-label{
+  color:var(--gold);
+  text-transform:uppercase;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.hero h1{
+  font-size:clamp(34px,5vw,62px);
+  line-height:1;
+  margin:12px 0;
+  letter-spacing:-3px;
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:570px;
+  line-height:1.7;
+}
+
+.hero-actions{
+  display:flex;
+  gap:10px;
+  margin-top:24px;
+}
+
+.primary{
+  border:0;
+  background:var(--gold);
+  color:#111;
+  font-weight:900;
+  padding:13px 20px;
+  border-radius:11px;
+}
+
+.primary:hover{
+  background:#ffe66a;
+}
+
+.secondary{
+  border:1px solid var(--border);
+  background:#171d27;
+  color:white;
+  padding:13px 20px;
+  border-radius:11px;
+  font-weight:800;
+}
+
+.section{
+  margin-top:30px;
+}
+
+.section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.section-header h2{
+  margin:0;
+  font-size:20px;
+}
+
+.section-header span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.sports-tabs{
+  display:flex;
+  gap:9px;
+  overflow:auto;
+  padding-bottom:4px;
+}
+
+.sport-tab{
+  white-space:nowrap;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:#aeb7c6;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.sport-tab.active,
+.sport-tab:hover{
+  color:#111;
+  background:var(--gold);
+  border-color:var(--gold);
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:20px;
+  align-items:start;
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.panel-title{
+  padding:17px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.panel-title h3{
+  margin:0;
+  font-size:16px;
+}
+
+.live{
+  color:var(--green);
+  font-size:12px;
+  font-weight:800;
+}
+
+.event{
+  padding:18px;
+  border-bottom:1px solid var(--border);
+}
+
+.event:last-child{
+  border-bottom:0;
+}
+
+.event-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:15px;
+}
+
+.league{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:7px;
+}
+
+.teams{
+  font-size:15px;
+  font-weight:800;
+}
+
+.match-time{
+  text-align:right;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.odds-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.odd{
+  border:1px solid var(--border);
+  background:#171e28;
+  color:white;
+  border-radius:9px;
+  padding:11px 8px;
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  font-weight:700;
+}
+
+.odd:hover{
+  border-color:var(--gold);
+  background:#202733;
+}
+
+.odd span:last-child{
+  color:var(--gold);
+}
+
+.bet-slip{
+  position:sticky;
+  top:88px;
+}
+
+.slip-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.slip-badge{
+  padding:5px 8px;
+  background:#211e0d;
+  color:var(--gold);
+  border-radius:7px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.slip-body{
+  padding:16px;
+}
+
+.selection{
+  background:#0c1016;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:13px;
+}
+
+.selection-title{
+  font-weight:800;
+  font-size:14px;
+}
+
+.selection-meta{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.empty-slip{
+  padding:35px 10px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.empty-icon{
+  font-size:35px;
+  margin-bottom:10px;
+}
+
+.stake-label{
+  margin-top:18px;
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stake-input{
+  width:100%;
+  margin-top:7px;
+  padding:12px;
+  background:#0b0f15;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:9px;
+  outline:none;
+}
+
+.stake-input:focus{
+  border-color:var(--gold);
+}
+
+.quick-stakes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin-top:8px;
+}
+
+.quick-stakes button{
+  padding:7px 3px;
+  border:1px solid var(--border);
+  background:#171e28;
+  color:#aeb7c6;
+  border-radius:7px;
+  font-size:11px;
+}
+
+.return-box{
+  margin-top:15px;
+  padding:13px;
+  background:#171e28;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.return-box strong{
+  color:var(--green);
+}
+
+.place{
+  width:100%;
+  margin-top:12px;
+}
+
+.clear{
+  width:100%;
+  margin-top:7px;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:8px;
+  font-size:12px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.casino-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.game{
+  border:1px solid var(--border);
+  background:linear-gradient(145deg,#151b24,#0d1118);
+  border-radius:15px;
+  padding:18px;
+  min-height:190px;
+  position:relative;
+  overflow:hidden;
+}
+
+.game:hover{
+  border-color:#4a5260;
+  transform:translateY(-2px);
+}
+
+.game-icon{
+  width:62px;
+  height:62px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  font-size:34px;
+  background:#080b10;
+  border:1px solid var(--border);
+}
+
+.game h3{
+  margin:15px 0 5px;
+}
+
+.game p{
+  margin:0 0 14px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.game button{
+  border:1px solid var(--border);
+  background:#1b222d;
+  color:white;
+  padding:9px 13px;
+  border-radius:8px;
+  font-weight:800;
+}
+
+.game button:hover{
+  background:var(--gold);
+  color:#111;
+}
+
+.slot-panel{
+  margin-top:18px;
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:#0d1117;
+  text-align:center;
+}
+
+.reels{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:20px 0;
+}
+
+.reel{
+  width:85px;
+  height:85px;
+  display:grid;
+  place-items:center;
+  font-size:45px;
+  background:#070a0f;
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+
+.account-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+}
+
+.stat{
+  padding:20px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:15px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat-value{
+  margin-top:9px;
+  font-size:24px;
+  font-weight:900;
+}
+
+.stat-value.gold{
+  color:var(--gold);
+}
+
+.activity{
+  margin-top:18px;
+}
+
+.activity-row{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+}
+
+.activity-row:last-child{
+  border-bottom:0;
+}
+
+.green{
+  color:var(--green);
+}
+
+.red{
+  color:var(--red);
+}
+
+.mobile-nav{
+  display:none;
+}
+
+footer{
+  padding:35px 20px;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:#6f7989;
+  font-size:12px;
+}
+
+@media(max-width:1000px){
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .bet-slip{
+    position:static;
+  }
+
+  .casino-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .account-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .topbar{
+    padding:0 15px;
+  }
+
+  .desktop-nav{
+    display:none;
+  }
+
+  main{
+    padding:16px 12px 90px;
+  }
+
+  .hero{
+    padding:27px 22px;
+    min-height:auto;
+  }
+
+  .hero h1{
+    font-size:39px;
+  }
+
+  .hero-actions{
+    flex-direction:column;
+  }
+
+  .primary,
+  .secondary{
+    width:100%;
+  }
+
+  .casino-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .odds-grid{
+    grid-template-columns:1fr;
+  }
+
+  .mobile-nav{
+    position:fixed;
+    z-index:200;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    left:10px;
+    right:10px;
+    bottom:10px;
+    padding:7px;
+    background:rgba(16,20,28,.96);
+    border:1px solid var(--border);
+    border-radius:15px;
+    backdrop-filter:blur(15px);
+  }
+
+  .mobile-nav button{
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:9px 3px;
+    font-size:11px;
+    font-weight:800;
+  }
+
+  .mobile-nav button.active{
+    color:var(--gold);
+  }
+}
+
+@media(max-width:430px){
+  .casino-grid{
+    grid-template-columns:1fr;
+  }
+
+  .balance{
+    padding:7px 9px;
+  }
+
+  .logo{
+    font-size:21px;
+  }
+
+  .reel{
+    width:70px;
+    height:70px;
+  }
+}
+</style>
+</head>
+
 <body>
-<header><div class="logo">1WIN<b>BET</b></div><div class="bal">Demo balance: <b id="balance">10,000</b> VC</div></header>
+
+<header class="topbar">
+
+  <div class="logo">
+    1WIN<span>BET</span>
+  </div>
+
+  <nav class="desktop-nav">
+    <button class="nav-btn active" onclick="showPage('sports',this)">⚽ Sports</button>
+    <button class="nav-btn" onclick="showPage('casino',this)">🎰 Casino</button>
+    <button class="nav-btn" onclick="showPage('account',this)">👤 Account</button>
+  </nav>
+
+  <div class="balance">
+    <span>💰</span>
+    <strong id="balance">10,000</strong>
+    <span>VC</span>
+  </div>
+
+</header>
+
 <main>
-<h1>Sportsbook + Casino</h1><p class="muted">Educational front-end demo using virtual credits only.</p>
-<div class="notice"><b>DEMO ONLY:</b> No real-money deposits, withdrawals, cash prizes, or real wagering are enabled.</div>
-<nav><button class="active" onclick="page('sports',this)">Sports</button><button onclick="page('casino',this)">Casino</button><button onclick="page('account',this)">Account</button></nav>
 
-<section id="sports"><div class="grid"><div class="card"><h2>Sportsbook</h2><div id="events"></div></div><div class="card"><h2>Bet Slip</h2><div id="slip" class="muted">Select an odd.</div><p>Stake: <input id="stake" type="number" min="1" value="100" style="width:80px"></p><p>Potential return: <b id="ret">0 VC</b></p><button class="primary" onclick="bet()">Place Demo Bet</button></div></div></section>
+  <div class="demo-banner">
+    <div class="demo-dot"></div>
+    <div>
+      <strong>DEMO MODE</strong> — This website uses virtual credits only.
+      No real-money deposits, withdrawals, cash prizes, or real wagering.
+    </div>
+  </div>
 
-<section id="casino" class="hidden"><div class="card"><h2>Casino Lobby</h2><div class="games"><div class="game"><div class="icon">🎰</div><h3>Lucky Reels</h3><button onclick="document.getElementById('slots').classList.remove('hidden')">Play</button></div><div class="game"><div class="icon">🃏</div><h3>Card Room</h3><p class="muted">Interface placeholder</p></div><div class="game"><div class="icon">🎲</div><h3>Dice</h3><p class="muted">Interface placeholder</p></div></div></div>
-<div id="slots" class="card hidden"><h2>🎰 Lucky Reels</h2><p class="muted">50 virtual credits per spin.</p><div class="reels"><div class="reel" id="r1">🍒</div><div class="reel" id="r2">🍋</div><div class="reel" id="r3">🔔</div></div><button class="primary" onclick="spin()">Spin — 50 VC</button><p id="result"></p></div></section>
+  <!-- SPORTS -->
 
-<section id="account" class="hidden"><div class="card"><h2>Demo Account</h2><p>Username: <b>demo_player</b></p><p>Virtual balance: <b id="balance2">10,000 VC</b></p><p class="muted">Local browser demo. Refreshing resets the balance.</p></div></section>
-</main><footer>1WINBET Sportsbook + Casino Demo · Educational prototype · Virtual credits only</footer>
+  <section id="sports">
+
+    <div class="hero">
+
+      <div class="hero-content">
+
+        <div class="hero-label">Virtual Sportsbook</div>
+
+        <h1>Play. Predict.<br><span style="color:var(--gold)">Have Fun.</span></h1>
+
+        <p>
+          Explore football, basketball and tennis markets using
+          virtual credits in this educational sportsbook prototype.
+        </p>
+
+        <div class="hero-actions">
+          <button class="primary" onclick="document.getElementById('matches').scrollIntoView()">
+            View Matches
+          </button>
+
+          <button class="secondary" onclick="showPage('casino',document.querySelectorAll('.nav-btn')[1])">
+            Explore Casino
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-header">
+        <h2>Sports</h2>
+        <span>Demo markets</span>
+      </div>
+
+      <div class="sports-tabs">
+        <button class="sport-tab active">⚽ Football</button>
+        <button class="sport-tab">🏀 Basketball</button>
+        <button class="sport-tab">🎾 Tennis</button>
+        <button class="sport-tab">🏒 Hockey</button>
+        <button class="sport-tab">🥊 Boxing</button>
+      </div>
+
+    </div>
+
+    <div class="section layout" id="matches">
+
+      <div class="panel">
+
+        <div class="panel-title">
+          <h3>Featured Matches</h3>
+          <span class="live">● DEMO EVENTS</span>
+        </div>
+
+        <div id="events"></div>
+
+      </div>
+
+      <aside class="panel bet-slip">
+
+        <div class="panel-title">
+          <div class="slip-header">
+            <h3>Bet Slip</h3>
+          </div>
+
+          <span class="slip-badge">VIRTUAL</span>
+        </div>
+
+        <div class="slip-body">
+
+          <div id="emptySlip" class="empty-slip">
+            <div class="empty-icon">🎯</div>
+            <strong>Your bet slip is empty</strong>
+            <p>Select an odd to add a selection.</p>
+          </div>
+
+          <div id="selectionArea" class="hidden">
+
+            <div class="selection">
+              <div class="selection-title" id="selectionMatch"></div>
+              <div class="selection-meta">
+                Pick: <b id="selectionPick"></b>
+                · Odds: <b id="selectionOdds"></b>
+              </div>
+            </div>
+
+            <label class="stake-label">
+              Stake
+              <input
+                id="stake"
+                class="stake-input"
+                type="number"
+                min="1"
+                value="100"
+                oninput="calculateReturn()"
+              >
+            </label>
+
+            <div class="quick-stakes">
+              <button onclick="setStake(50)">50</button>
+              <button onclick="setStake(100)">100</button>
+              <button onclick="setStake(500)">500</button>
+              <button onclick="setStake(1000)">1K</button>
+            </div>
+
+            <div class="return-box">
+              <span>Potential return</span>
+              <strong id="potentialReturn">0 VC</strong>
+            </div>
+
+            <button class="primary place" onclick="placeDemoBet()">
+              Place Demo Bet
+            </button>
+
+            <button class="clear" onclick="clearSelection()">
+              Clear selection
+            </button>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </section>
+
+  <!-- CASINO -->
+
+  <section id="casino" class="hidden">
+
+    <div class="section-header">
+      <h2>Casino</h2>
+      <span>Virtual-credit games</span>
+    </div>
+
+    <div class="casino-grid">
+
+      <div class="game">
+        <div class="game-icon">🎰</div>
+        <h3>Lucky Reels</h3>
+        <p>Spin using 50 VC per play.</p>
+        <button onclick="openSlots()">Play Demo</button>
+      </div>
+
+      <div class="game">
+        <div class="game-icon">🃏</div>
+        <h3>Card Room</h3>
+        <p>Card-game interface preview.</p>
+        <button onclick="demoMessage()">View Demo</button>
+      </div>
+
+      <div class="game">
+        <div class="game-icon">🎲</div>
+        <h3>Dice</h3>
+        <p>Simple virtual dice experience.</p>
+        <button onclick="demoMessage()">View Demo</button>
+      </div>
+
+      <div class="game">
+        <div class="game-icon">💎</div>
+        <h3>Coming Soon</h3>
+        <p>More virtual games can be added.</p>
+        <button onclick="demoMessage()">Preview</button>
+      </div>
+
+    </div>
+
+    <div id="slotPanel" class="slot-panel hidden">
+
+      <h2>🎰 Lucky Reels</h2>
+
+      <p style="color:var(--muted)">
+        Each spin costs 50 virtual credits.
+      </p>
+
+      <div class="reels">
+        <div class="reel" id="r1">🍒</div>
+        <div class="reel" id="r2">🍋</div>
+        <div class="reel" id="r3">🔔</div>
+      </div>
+
+      <button class="primary" onclick="spin()">
+        Spin — 50 VC
+      </button>
+
+      <p id="slotResult"></p>
+
+    </div>
+
+  </section>
+
+  <!-- ACCOUNT -->
+
+  <section id="account" class="hidden">
+
+    <div class="section-header">
+      <h2>Demo Account</h2>
+      <span>Local browser profile</span>
+    </div>
+
+    <div class="account-grid">
+
+      <div class="stat">
+        <div class="stat-label">Virtual Balance</div>
+        <div class="stat-value gold">
+          <span id="accountBalance">10,000</span> VC
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Username</div>
+        <div class="stat-value">demo_player</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Account Type</div>
+        <div class="stat-value">DEMO</div>
+      </div>
+
+    </div>
+
+    <div class="panel activity">
+
+      <div class="panel-title">
+        <h3>Recent Activity</h3>
+      </div>
+
+      <div style="padding:0 18px">
+
+        <div class="activity-row">
+          <span>Demo account created</span>
+          <span class="green">+10,000 VC</span>
+        </div>
+
+        <div class="activity-row">
+          <span>Virtual betting enabled</span>
+          <span>Demo</span>
+        </div>
+
+        <div class="activity-row">
+          <span>Real-money wagering</span>
+          <span class="red">Disabled</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<nav class="mobile-nav">
+
+  <button class="active" onclick="showPage('sports',this)">
+    ⚽<br>Sports
+  </button>
+
+  <button onclick="showPage('casino',this)">
+    🎰<br>Casino
+  </button>
+
+  <button onclick="showPage('account',this)">
+    👤<br>Account
+  </button>
+
+</nav>
+
+<footer>
+  1WINBET Demo · Educational sportsbook & casino prototype ·
+  Virtual credits only · No real-money gambling
+</footer>
+
 <script>
-const data=[["Manchester City","Liverpool",1.82,3.75,4.25],["Barcelona","Real Madrid",2.15,3.55,2.85],["PSG","Marseille",1.55,4.30,5.90],["Bayern Munich","Dortmund",1.70,4.10,4.40]];
-let balance=10000,selected=null;
-function render(){events.innerHTML=data.map((x,i)=>`<div class="event"><div><b>${x[0]} vs ${x[1]}</b><div class="muted">Football · Demo market</div></div><div class="odds"><button class="odd" onclick="pick('${x[0]} vs ${x[1]}','1',${x[2]})">1 ${x[2]}</button><button class="odd" onclick="pick('${x[0]} vs ${x[1]}','X',${x[3]})">X ${x[3]}</button><button class="odd" onclick="pick('${x[0]} vs ${x[1]}','2',${x[4]})">2 ${x[4]}</button></div></div>`).join("")}
-function pick(m,p,o){selected={m,p,o};slip.innerHTML=`<b>${m}</b><br><span class="muted">Pick ${p} · Odds ${o}</span>`;calc()}
-function calc(){ret.textContent=selected?Math.round((+stake.value||0)*selected.o).toLocaleString()+" VC":"0 VC"}
-stake.oninput=calc;
-function bet(){if(!selected)return alert("Choose an odd first.");let s=+stake.value;if(s<=0||s>balance)return alert("Invalid stake or insufficient virtual balance.");balance-=s;let win=Math.random()<.5;let payout=win?Math.round(s*selected.o):0;if(win)balance+=payout;update();alert(win?"Demo bet won! Return: "+payout+" VC":"Demo bet lost.");selected=null;slip.textContent="Select an odd.";ret.textContent="0 VC"}
-function update(){balanceEl.textContent=balance.toLocaleString();balance2.textContent=balance.toLocaleString()+" VC"}let balanceEl=document.getElementById("balance");
-function page(id,b){["sports","casino","account"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
-const sy=["🍒","🍋","🔔","⭐","7️⃣","💎"];
-function spin(){if(balance<50)return alert("Not enough virtual credits.");balance-=50;let a=[0,0,0].map(()=>sy[Math.floor(Math.random()*sy.length)]);r1.textContent=a[0];r2.textContent=a[1];r3.textContent=a[2];let win=a[0]===a[1]&&a[1]===a[2]?500:(a[0]===a[1]||a[1]===a[2]||a[0]===a[2]?100:0);balance+=win;update();result.textContent=win?"You won "+win+" VC!":"No win — try again."}
-render();update();
-</script></body></html>
+
+const matches = [
+
+  {
+    league:"Premier Football · Demo",
+    home:"Manchester City",
+    away:"Liverpool",
+    time:"19:30",
+    odds:[1.82,3.75,4.25]
+  },
+
+  {
+    league:"La Liga · Demo",
+    home:"Barcelona",
+    away:"Real Madrid",
+    time:"21:00",
+    odds:[2.15,3.55,2.85]
+  },
+
+  {
+    league:"Ligue 1 · Demo",
+    home:"PSG",
+    away:"Marseille",
+    time:"22:00",
+    odds:[1.55,4.30,5.90]
+  },
+
+  {
+    league:"Bundesliga · Demo",
+    home:"Bayern Munich",
+    away:"Dortmund",
+    time:"20:30",
+    odds:[1.70,4.10,4.40]
+  }
+
+];
+
+let balance = 10000;
+let selected = null;
+
+function renderMatches(){
+
+  const container = document.getElementById("events");
+
+  container.innerHTML = matches.map((match,index)=>`
+
+    <div class="event">
+
+      <div class="event-top">
+
+        <div>
+
+          <div class="league">
+            ${match.league}
+          </div>
+
+          <div class="teams">
+            ${match.home}
+            <span style="color:var(--muted);margin:0 5px">vs</span>
+            ${match.away}
+          </div>
+
+        </div>
+
+        <div class="match-time">
+          Today<br>
+          ${match.time}
+        </div>
+
+      </div>
+
+      <div class="odds-grid">
+
+        <button class="odd"
+          onclick="selectOdd(${index},'1',${match.odds[0]})">
+
+          <span>1</span>
+          <span>${match.odds[0]}</span>
+
+        </button>
+
+        <button class="odd"
+          onclick="selectOdd(${index},'X',${match.odds[1]})">
+
+          <span>X</span>
+          <span>${match.odds[1]}</span>
+
+        </button>
+
+        <button class="odd"
+          onclick="selectOdd(${index},'2',${match.odds[2]})">
+
+          <span>2</span>
+          <span>${match.odds[2]}</span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+function selectOdd(index,pick,odds){
+
+  const match = matches[index];
+
+  selected = {
+    match:match.home+" vs "+match.away,
+    pick:pick,
+    odds:odds
+  };
+
+  document.getElementById("emptySlip").classList.add("hidden");
+
+  document.getElementById("selectionArea").classList.remove("hidden");
+
+  document.getElementById("selectionMatch").textContent =
+    selected.match;
+
+  document.getElementById("selectionPick").textContent =
+    selected.pick;
+
+  document.getElementById("selectionOdds").textContent =
+    selected.odds;
+
+  calculateReturn();
+
+}
+
+function calculateReturn(){
+
+  if(!selected) return;
+
+  const stake =
+    Number(document.getElementById("stake").value) || 0;
+
+  const result =
+    Math.round(stake * selected.odds);
+
+  document.getElementById("potentialReturn").textContent =
+    result.toLocaleString()+" VC";
+
+}
+
+function setStake(amount){
+
+  document.getElementById("stake").value = amount;
+
+  calculateReturn();
+
+}
+
+function clearSelection(){
+
+  selected = null;
+
+  document.getElementById("emptySlip").classList.remove("hidden");
+
+  document.getElementById("selectionArea").classList.add("hidden");
+
+}
+
+function placeDemoBet(){
+
+  if(!selected){
+
+    alert("Please select an odd first.");
+
+    return;
+
+  }
+
+  const stake =
+    Number(document.getElementById("stake").value);
+
+  if(!stake || stake <= 0){
+
+    alert("Enter a valid stake.");
+
+    return;
+
+  }
+
+  if(stake > balance){
+
+    alert("Insufficient virtual credits.");
+
+    return;
+
+  }
+
+  balance -= stake;
+
+  const won = Math.random() < 0.5;
+
+  const payout =
+    won ? Math.round(stake * selected.odds) : 0;
+
+  if(won){
+
+    balance += payout;
+
+  }
+
+  updateBalance();
+
+  alert(
+    won
+    ? "Demo bet won! Return: "+payout.toLocaleString()+" VC"
+    : "Demo bet lost. No real money was involved."
+  );
+
+  clearSelection();
+
+}
+
+function updateBalance(){
+
+  document.getElementById("balance").textContent =
+    balance.toLocaleString();
+
+  document.getElementById("accountBalance").textContent =
+    balance.toLocaleString();
+
+}
+
+function showPage(page,button){
+
+  ["sports","casino","account"].forEach(id=>{
+
+    document.getElementById(id)
+      .classList.toggle("hidden",id!==page);
+
+  });
+
+  document.querySelectorAll(".nav-btn,.mobile-nav button")
+    .forEach(btn=>btn.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+function openSlots(){
+
+  document.getElementById("slotPanel")
+    .classList.remove("hidden");
+
+  document.getElementById("slotPanel")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+}
+
+function demoMessage(){
+
+  alert(
+    "This is a demo interface. More virtual-credit games can be added here."
+  );
+
+}
+
+const symbols = [
+  "🍒",
+  "🍋",
+  "🔔",
+  "⭐",
+  "7️⃣",
+  "💎"
+];
+
+function spin(){
+
+  const cost = 50;
+
+  if(balance < cost){
+
+    alert("Not enough virtual credits.");
+
+    return;
+
+  }
+
+  balance -= cost;
+
+  const reels = [
+
+    symbols[Math.floor(Math.random()*symbols.length)],
+    symbols[Math.floor(Math.random()*symbols.length)],
+    symbols[Math.floor(Math.random()*symbols.length)]
+
+  ];
+
+  document.getElementById("r1").textContent = reels[0];
+  document.getElementById("r2").textContent = reels[1];
+  document.getElementById("r3").textContent = reels[2];
+
+  let win = 0;
+
+  if(
+    reels[0] === reels[1] &&
+    reels[1] === reels[2]
+  ){
+
+    win = 500;
+
+  }else if(
+    reels[0] === reels[1] ||
+    reels[1] === reels[2] ||
+    reels[0] === reels[2]
+  ){
+
+    win = 100;
+
+  }
+
+  balance += win;
+
+  updateBalance();
+
+  document.getElementById("slotResult").innerHTML =
+    win
+    ? `<strong style="color:var(--green)">You won ${win} VC!</strong>`
+    : `<span style="color:var(--muted)">No win — try again.</span>`;
+
+}
+
+renderMatches();
+updateBalance();
+
+</script>
+
+</body>
+</html>
+```
