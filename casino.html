@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Casino — 1WINBET Demo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">1WIN<span>BET</span></a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="sportsbook.html">Sports</a>
+    <a class="active" href="casino.html">Casino</a>
+    <a href="account.html">Account</a>
+  </nav>
+
+  <div class="top-right">
+    <div class="balance">
+      <small>DEMO</small>
+      <span id="balance">10,000</span> VC
+    </div>
+  </div>
+</header>
+
+<div class="demo-bar">
+  DEMO CASINO — Virtual credits only
+</div>
+
+<main class="casino-page">
+
+  <section class="casino-hero">
+    <div>
+      <span class="eyebrow">1WINBET CASINO</span>
+      <h1>Spin. Play. Enjoy.</h1>
+      <p>Try our simulated slot games with virtual credits.</p>
+    </div>
+  </section>
+
+  <div class="casino-toolbar">
+
+    <div class="casino-categories">
+      <button class="casino-filter active" data-category="all">All Games</button>
+      <button class="casino-filter" data-category="slots">Slots</button>
+      <button class="casino-filter" data-category="classic">Classic</button>
+      <button class="casino-filter" data-category="jackpot">Jackpot</button>
+    </div>
+
+    <input
+      id="gameSearch"
+      class="search-input"
+      placeholder="Search games..."
+    >
+
+  </div>
+
+  <section class="game-grid large" id="gameGrid"></section>
+
+</main>
+
+<div id="gameModal" class="game-modal hidden">
+
+  <div class="game-window">
+
+    <button id="closeGame" class="close-game">×</button>
+
+    <div class="slot-title">
+      <span id="gameTitle">Lucky 777</span>
+    </div>
+
+    <div class="slot-machine">
+
+      <div class="reels">
+
+        <div class="reel" id="reel1">🍒</div>
+        <div class="reel" id="reel2">7️⃣</div>
+        <div class="reel" id="reel3">💎</div>
+
+      </div>
+
+      <div class="slot-result" id="slotResult">
+        PLACE YOUR SPIN
+      </div>
+
+      <div class="slot-cost">
+        Spin cost: <strong>25 VC</strong>
+      </div>
+
+      <button id="spinButton" class="spin-button">
+        SPIN
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/app.js"></script>
+<script src="js/casino.js"></script>
+
+</body>
+</html>
