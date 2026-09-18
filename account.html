@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Account — 1WINBET Demo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">1WIN<span>BET</span></a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="sportsbook.html">Sports</a>
+    <a href="casino.html">Casino</a>
+    <a class="active" href="account.html">Account</a>
+  </nav>
+
+  <div class="top-right">
+    <div class="balance">
+      <small>DEMO</small>
+      <span id="balance">10,000</span> VC
+    </div>
+  </div>
+</header>
+
+<div class="demo-bar">
+  DEMO ACCOUNT
+</div>
+
+<main class="account-page">
+
+  <div class="account-header">
+
+    <div class="avatar">U</div>
+
+    <div>
+      <span class="eyebrow">DEMO PLAYER</span>
+      <h1>My Account</h1>
+      <p>Virtual-credit account dashboard</p>
+    </div>
+
+  </div>
+
+  <div class="account-grid">
+
+    <div class="account-card">
+      <span>Virtual Balance</span>
+      <strong id="accountBalance">10,000 VC</strong>
+    </div>
+
+    <div class="account-card">
+      <span>Total Demo Bets</span>
+      <strong id="betCount">0</strong>
+    </div>
+
+    <div class="account-card">
+      <span>Casino Spins</span>
+      <strong id="spinCount">0</strong>
+    </div>
+
+  </div>
+
+  <section class="history-section">
+
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">ACTIVITY</span>
+        <h2>Recent History</h2>
+      </div>
+    </div>
+
+    <div id="history" class="history-list">
+      <div class="history-empty">
+        No activity yet.
+      </div>
+    </div>
+
+  </section>
+
+  <section class="account-actions">
+
+    <h2>Demo Controls</h2>
+
+    <p>
+      These controls are only for the prototype.
+    </p>
+
+    <button id="resetDemo" class="danger-btn">
+      Reset Demo Account
+    </button>
+
+  </section>
+
+</main>
+
+<footer>
+  <strong>1WINBET DEMO</strong>
+  <p>Virtual-credit entertainment prototype. No real-money gambling.</p>
+</footer>
+
+<script src="js/app.js"></script>
+
+<script>
+
+function updateAccount(){
+
+  const balance = getBalance();
+
+  document.getElementById("accountBalance").textContent =
+    balance.toLocaleString() + " VC";
+
+  document.getElementById("balance").textContent =
+    balance.toLocaleString();
+
+  const history =
+    JSON.parse(localStorage.getItem("winbet_history") || "[]");
+
+  const bets =
+    history.filter(item => item.type === "bet").length;
+
+  const spins =
+    history.filter(item => item.type === "spin").length;
+
+  document.getElementById("betCount").textContent = bets;
+  document.getElementById("spinCount").textContent = spins;
+
+  const box = document.getElementById("history");
+
+  if(history.length === 0){
+
+    box.innerHTML =
+      '<div class="history-empty">No activity yet.</div>';
+
+    return;
+
+  }
+
+  box.innerHTML = history.slice().reverse().map(item => `
+
+    <div class="history-row">
+
+      <div>
+        <strong>${item.title}</strong>
+        <small>${item.time}</small>
+      </div>
+
+      <strong class="${item.amount >= 0 ? "positive":"negative"}">
+        ${item.amount >= 0 ? "+" : ""}
+        ${item.amount.toLocaleString()} VC
+      </strong>
+
+    </div>
+
+  `).join("");
+
+}
+
+document
+  .getElementById("resetDemo")
+  .addEventListener("click",()=>{
+
+    localStorage.removeItem("winbet_balance");
+    localStorage.removeItem("winbet_history");
+    localStorage.removeItem("winbet_spins");
+
+    showToast("Demo account reset.");
+
+    updateAccount();
+
+  });
+
+updateAccount();
+
+</script>
+
+</body>
+</html>
