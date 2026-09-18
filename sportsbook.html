@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sportsbook — 1WINBET Demo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">1WIN<span>BET</span></a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a class="active" href="sportsbook.html">Sports</a>
+    <a href="casino.html">Casino</a>
+    <a href="account.html">Account</a>
+  </nav>
+
+  <div class="top-right">
+    <div class="balance">
+      <small>DEMO</small>
+      <span id="balance">10,000</span> VC
+    </div>
+  </div>
+</header>
+
+<div class="demo-bar">
+  DEMO SPORTSBOOK — All odds and bets are simulated
+</div>
+
+<div class="sports-layout">
+
+<aside class="sports-sidebar">
+
+  <h4>SPORTS</h4>
+
+  <button class="sport-filter active" data-sport="all">
+    ⭐ Popular <span>24</span>
+  </button>
+
+  <button class="sport-filter" data-sport="football">
+    ⚽ Football <span>18</span>
+  </button>
+
+  <button class="sport-filter" data-sport="basketball">
+    🏀 Basketball <span>8</span>
+  </button>
+
+  <button class="sport-filter" data-sport="tennis">
+    🎾 Tennis <span>12</span>
+  </button>
+
+  <h4>FOOTBALL LEAGUES</h4>
+
+  <button class="league-filter" data-league="Premier League">
+    🇬🇧 Premier League
+  </button>
+
+  <button class="league-filter" data-league="La Liga">
+    🇪🇸 La Liga
+  </button>
+
+  <button class="league-filter" data-league="Bundesliga">
+    🇩🇪 Bundesliga
+  </button>
+
+  <button class="league-filter" data-league="Champions League">
+    🏆 Champions League
+  </button>
+
+</aside>
+
+<main class="sports-main">
+
+  <div class="sports-title">
+    <div>
+      <span class="eyebrow">SPORTSBOOK</span>
+      <h1>Sports Markets</h1>
+    </div>
+
+    <input
+      id="matchSearch"
+      class="search-input"
+      placeholder="Search team or league..."
+    >
+  </div>
+
+  <div class="sports-tabs">
+    <button class="market-filter active" data-filter="all">All</button>
+    <button class="market-filter" data-filter="live">🔴 Live</button>
+    <button class="market-filter" data-filter="today">Today</button>
+    <button class="market-filter" data-filter="football">Football</button>
+    <button class="market-filter" data-filter="basketball">Basketball</button>
+    <button class="market-filter" data-filter="tennis">Tennis</button>
+  </div>
+
+  <div id="matchList"></div>
+
+</main>
+
+<aside class="bet-slip">
+
+  <div class="slip-header">
+    <h2>Bet Slip <span id="selectionCount">(0)</span></h2>
+    <button id="clearSlip">Clear</button>
+  </div>
+
+  <div class="slip-tabs">
+    <button class="active">Multiple</button>
+    <button>Single</button>
+  </div>
+
+  <div id="slipSelections"></div>
+
+  <div id="slipEmpty" class="slip-empty">
+    <div>🎟️</div>
+    <p>Your bet slip is empty</p>
+    <small>Click an odd to add a selection.</small>
+  </div>
+
+  <div id="slipSummary" class="slip-summary hidden">
+
+    <div class="summary-line">
+      <span>Selections</span>
+      <strong id="selectionNumber">0</strong>
+    </div>
+
+    <div class="summary-line">
+      <span>Combined odds</span>
+      <strong id="combinedOdds">0.00</strong>
+    </div>
+
+    <label>Stake (VC)</label>
+
+    <input
+      id="stakeInput"
+      type="number"
+      min="1"
+      value="100"
+    >
+
+    <div class="quick-money">
+      <button data-stake="50">50</button>
+      <button data-stake="100">100</button>
+      <button data-stake="500">500</button>
+      <button data-stake="1000">1K</button>
+    </div>
+
+    <div class="potential">
+      <span>Potential return</span>
+      <strong><span id="potentialReturn">0</span> VC</strong>
+    </div>
+
+    <button id="placeBet" class="place-bet">
+      PLACE DEMO BET
+    </button>
+
+  </div>
+
+</aside>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/app.js"></script>
+<script src="js/sportsbook.js"></script>
+
+</body>
+</html>
